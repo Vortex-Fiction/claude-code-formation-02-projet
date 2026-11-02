@@ -18,7 +18,6 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 | git         | `brew install git`                         | `winget install Git.Git`                   |
 | GitHub CLI  | `brew install gh`                          | `winget install GitHub.cli`                |
 | Claude Code | `npm install -g @anthropic-ai/claude-code` | `npm install -g @anthropic-ai/claude-code` |
-| Vale        | `brew install vale`                        | `winget install errata-ai.Vale`            |
 
 Then, on both systems:
 
@@ -59,4 +58,4 @@ npm run lint
 npm run lint:doc
 ```
 
-`npm run lint:doc` checks each `README.md` and `CLAUDE.md` with Vale and the Simplified Technical English rules in `.vale/`.
+`npm run lint:doc` checks each `README.md` and `CLAUDE.md` with Vale and the Simplified Technical English rules in `.vale/`. `npm install` downloads Vale.
