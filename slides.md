@@ -186,7 +186,7 @@ npm run lint:doc
 - `.claude/settings.json` — partagé dans le repo
 - `.claude/settings.local.json` — le vôtre, pas commité
 - `allow` : ce qui ne demande plus la permission (`npm test`)
-- `deny` : ce qui est toujours refusé (`.env*`, `git push --force`)
+- `deny` : refusé si le motif correspond (`.env*`, `git push --force`)
 - `/permissions` pour voir et modifier
 
 ---
@@ -203,11 +203,22 @@ npm run lint:doc
 ```
 
 - Une commande composée (`cd x && npm test`) doit passer **chaque** partie : une seule non autorisée, et Claude redemande
-- `deny` sur `Read` ne bloque pas `cat .env` dans Bash
 - `git push --force *` ne couvre pas `git push origin main --force`
 - Une seule commande simple par appel : écrivez-le dans le `CLAUDE.md`
 
 <!-- Retour d'expérience Vortex : la règle « One Bash call = one simple command » existe parce que les commandes enchaînées (cd, pipes, redirections) déclenchaient sans cesse des demandes de permission. -->
+
+---
+
+# `deny` : un filet de sécurité, pas une garantie
+
+- Une règle `Bash` compare le **texte** de la commande, tel que Claude l'écrit
+- Une autre forme passe à côté : `/usr/bin/git push …`, `sh -c '…'`
+- `deny` sur `Read` ou `Edit` couvre les outils de fichiers et `cat`, pas un script Node qui ouvre le fichier lui-même
+- Sous Windows, l'outil PowerShell a ses propres règles : `PowerShell(...)`
+- Pour un vrai blocage : le sandbox, appliqué par l'OS
+
+<!-- Le deny arrête la commande que Claude écrit d'habitude, ce n'est pas une barrière autour du programme. Autre exemple : « git -C . push --force » échappe à « Bash(git push --force *) ». Sous Windows, Claude Code peut lancer ses commandes avec l'outil PowerShell plutôt que Bash. Un préfixe « cd … && » ne suffit pas à le contourner : Claude Code vérifie chaque sous-commande. Sous Windows avec Git Bash, une règle deny Bash coupe l'outil PowerShell, sauf si CLAUDE_CODE_USE_POWERSHELL_TOOL=1 est défini ou si une règle PowerShell(...) existe : dans ce cas, écrivez aussi la règle PowerShell. Source : code.claude.com/docs/en/permissions. -->
 
 ---
 
