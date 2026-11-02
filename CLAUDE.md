@@ -13,6 +13,7 @@ npm workspaces monorepo: `backend` (NestJS API), `frontend` (Vue 3 app), `libs/s
 - Do not add a shell script. Write a script in Node, so that it runs on Windows and macOS.
 - Write each `README.md` and `CLAUDE.md` in Simplified Technical English, with the terms of `.vale/styles/STE/Glossary.yml`.
 - When a code change alters what a `README.md` tells, update the `README.md` in the same commit.
+- Write one commit per task: `<type>(<scope>): <Subject>`, for example `fix(loans): Reject a second return`.
 
 ## Where things go
 

@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": ["Bash(npm test)", "Bash(npm run lint)", "Bash(npm run lint:doc)"],
-    "deny": ["Read(./.env)", "Read(./.env.*)", "Bash(git push --force *)", "Bash(git push -f *)"]
+    "deny": [
+      "Read(./**/.env)",
+      "Read(./**/.env.*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f*)"
+    ]
   },
   "hooks": {
     "PostToolUse": [
