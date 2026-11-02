@@ -6,7 +6,8 @@
 
 1. Lancez `/mcp` : notez les serveurs déjà actifs, y compris les connecteurs claude.ai. Désactivez-les tous.
 2. Nouvelle session. Lancez `/context` et notez le total et la part « MCP tools ».
-3. Activez un serveur MCP : celui que vous utilisez déjà, ou le serveur GitHub. Nouvelle session, `/context` encore. Notez la différence. Si le serveur a beaucoup d'outils, Claude Code peut différer leurs descriptions : seuls les noms sont chargés, et le coût arrive au premier appel.
+3. Activez un serveur MCP : celui que vous utilisez déjà, ou le serveur GitHub. Nouvelle session, `/context` encore. Notez la différence. Par défaut, Claude Code diffère les définitions des outils MCP : seuls leurs noms sont chargés au démarrage. Une définition entre dans le contexte quand Claude la charge pour une tâche. Dans `/context`, ces outils sont marqués `(deferred)` ou `(loaded on-demand)`.
+   - Pour le serveur GitHub, créez d'abord un jeton d'accès personnel GitHub (fine-grained, en lecture seule), puis : `claude mcp add --transport http github https://api.githubcopilot.com/mcp/ --header "Authorization: Bearer <votre jeton>"`. Vérifiez avec `/mcp` que le serveur est connecté.
 4. Avec le MCP actif, demandez : « Liste les 5 derniers commits de ce repo et les issues ouvertes du repo de la formation. » Lancez `/context` après la réponse.
 5. Désactivez le MCP. Nouvelle session. Même demande, mais Claude doit utiliser `git log` et `gh issue list`. `/context` après la réponse.
 6. Remplissez le tableau ci-dessous.

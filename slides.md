@@ -101,6 +101,8 @@ Repo : `claude-code-formation-02-projet`
 | pour les humains (et les agents) | pour Claude                           |
 | ce que le code ne dit pas        | une règle par ligne                   |
 
+Le `README.md` d'une lib suit aussi un modèle : but, API publique, usage.
+
 <!-- Le README sert aussi à Claude : il le lit quand il découvre une lib. Mais une règle de travail n'a rien à faire dans un README. -->
 
 ---
@@ -171,6 +173,8 @@ npm run lint:doc
 
 # Des principes ordonnés
 
+SOLID → DRY → YAGNI → KISS, puis 9 valeurs classées (extrait : les 5 premières)
+
 1. Correctness over everything
 2. Security over simplicity
 3. Readability over cleverness
@@ -189,6 +193,8 @@ npm run lint:doc
 - `deny` : refusé si le motif correspond (`.env*`, `git push --force`)
 - `/permissions` pour voir et modifier
 
+<!-- Le fichier partagé donne les mêmes règles à toute l'équipe. Le fichier local garde vos réglages personnels. Ce qui est sûr et fréquent va dans allow : Claude ne vous interrompt plus pour ça. -->
+
 ---
 
 # Permissions : les pièges
@@ -202,7 +208,7 @@ npm run lint:doc
 }
 ```
 
-- Une commande composée (`cd x && npm test`) doit passer **chaque** partie : une seule non autorisée, et Claude redemande
+- Une commande composée (`npm test && npm run build`) doit passer **chaque** partie : `npm run build` n'est pas autorisé, donc Claude redemande
 - `git push --force *` ne couvre pas `git push origin main --force`
 - Une seule commande simple par appel : écrivez-le dans le `CLAUDE.md`
 
@@ -216,7 +222,7 @@ npm run lint:doc
 - Une autre forme passe à côté : `/usr/bin/git push …`, `sh -c '…'`
 - `deny` sur `Read` ou `Edit` couvre les outils de fichiers et `cat`, pas un script Node qui ouvre le fichier lui-même
 - Sous Windows, l'outil PowerShell a ses propres règles : `PowerShell(...)`
-- Pour un vrai blocage : le sandbox, appliqué par l'OS
+- Pour un vrai blocage : le sandbox, activé et configuré, appliqué par l'OS (macOS, Linux, WSL 2 ; pas sous Windows natif)
 
 <!-- Le deny arrête la commande que Claude écrit d'habitude, ce n'est pas une barrière autour du programme. Autre exemple : « git -C . push --force » échappe à « Bash(git push --force *) ». Sous Windows, Claude Code peut lancer ses commandes avec l'outil PowerShell plutôt que Bash. Un préfixe « cd … && » ne suffit pas à le contourner : Claude Code vérifie chaque sous-commande. Sous Windows avec Git Bash, une règle deny Bash coupe l'outil PowerShell, sauf si CLAUDE_CODE_USE_POWERSHELL_TOOL=1 est défini ou si une règle PowerShell(...) existe : dans ce cas, écrivez aussi la règle PowerShell. Sources : code.claude.com/docs/en/permissions et code.claude.com/docs/en/tools-reference. -->
 
@@ -258,9 +264,11 @@ npm run lint:doc
 # MCP : des outils, et leur coût
 
 - Un serveur MCP ajoute des outils à Claude : GitHub, Drive, une base…
-- Les noms des outils sont chargés **à chaque session** ; leurs descriptions aussi, ou au premier besoin quand il y en a beaucoup
+- Au démarrage, seuls les noms des outils et les instructions du serveur sont chargés ; la définition d'un outil entre dans le contexte quand Claude la charge (tool search)
 - Une réponse d'outil MCP peut être énorme : elle reste dans le contexte
 - `/mcp` montre ce qui est actif (connecteurs claude.ai compris), `/context` ce que ça coûte
+
+<!-- Le coût fixe est faible, le coût réel vient des réponses : une liste de 200 issues reste dans le contexte de la session. -->
 
 ---
 
