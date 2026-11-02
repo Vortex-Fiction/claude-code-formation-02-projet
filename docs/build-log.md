@@ -13,3 +13,7 @@ This repo was built with Claude Code from a written plan. Each entry is the inst
 ## Task 3 — Add the phase 2 exercises
 
 > Write four exercises in French under `exercices/`: the `CLAUDE.md` hierarchy, a `README.md` in STE, `settings.json` with a Node format hook, and the context cost of an MCP server against a CLI. Each exercise ends with clear success criteria.
+
+## Task 4 — Add the phase 2 slides
+
+> Write `slides.md` for Marp, in French, about 25 slides in the order of the phase 2 outline. At most 5 bullets per slide, speaker notes on the theory slides. Render to PNG and check that no text overflows.
