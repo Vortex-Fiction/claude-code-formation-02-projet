@@ -16,13 +16,15 @@
 
 ## Vérifiez
 
-Fermez Claude, ouvrez une nouvelle session dans `backend/` et demandez :
+Fermez Claude, ouvrez une nouvelle session **à la racine du repo** et demandez :
 
-> Où dois-je mettre un nouveau service pour les catégories de livres, et comment doit-il valider son entrée ?
+> Dans le backend, où dois-je mettre un nouveau service pour les catégories de livres, et comment doit-il valider son entrée ?
+
+Claude charge `backend/CLAUDE.md` dès qu'il lit un fichier de `backend/`. Lancez toujours `claude` à la racine : c'est là qu'il trouve `.claude/settings.json` (exercice 3).
 
 ## Réussi si
 
-- Claude répond avec la règle de `backend/CLAUDE.md`, sans relire tout le code.
+- Claude répond avec les règles de `backend/CLAUDE.md` (dossier, validation, enregistrement dans `AppModule`), sans relire tout le code.
 - Aucune règle n'apparaît dans deux fichiers.
 - Chaque fichier tient sur un écran.
 - `npm run lint:doc` est vert.

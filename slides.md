@@ -152,7 +152,7 @@ npm run lint:doc
 ```
 
 - Claude lit les erreurs et corrige seul
-- Dans le `CLAUDE.md` : « run `npm run lint:doc` before you commit »
+- Dans le `CLAUDE.md` : « run `npm run lint:doc` when you change a `README.md` or a `CLAUDE.md` »
 
 <!-- Le lint ferme la boucle : on ne demande pas à Claude d'être rigoureux, on lui donne un outil qui le vérifie. -->
 
@@ -197,15 +197,17 @@ npm run lint:doc
 {
   "permissions": {
     "allow": ["Bash(npm test)", "Bash(npm run lint)"],
-    "deny": ["Read(./.env*)", "Bash(git push --force *)"]
+    "deny": ["Read(./**/.env*)", "Bash(git push --force *)"]
   }
 }
 ```
 
-- Une commande composée (`a && b`) ne correspond à aucune règle : Claude redemande
+- Une commande composée (`cd x && npm test`) doit passer **chaque** partie : une seule non autorisée, et Claude redemande
+- `deny` sur `Read` ne bloque pas `cat .env` dans Bash
+- `git push --force *` ne couvre pas `git push origin main --force`
 - Une seule commande simple par appel : écrivez-le dans le `CLAUDE.md`
 
-<!-- Retour d'expérience Vortex : la règle « One Bash call = one simple command » existe parce que chaque `cd x && npm test` déclenchait une demande de permission. -->
+<!-- Retour d'expérience Vortex : la règle « One Bash call = one simple command » existe parce que les commandes enchaînées (cd, pipes, redirections) déclenchaient sans cesse des demandes de permission. -->
 
 ---
 
@@ -245,9 +247,9 @@ npm run lint:doc
 # MCP : des outils, et leur coût
 
 - Un serveur MCP ajoute des outils à Claude : GitHub, Drive, une base…
-- Chaque outil a une description chargée **à chaque session**
-- Un serveur peut coûter des milliers de tokens avant la première question
-- `/context` montre la part « MCP tools »
+- Les noms des outils sont chargés **à chaque session** ; leurs descriptions aussi, ou au premier besoin quand il y en a beaucoup
+- Une réponse d'outil MCP peut être énorme : elle reste dans le contexte
+- `/mcp` montre ce qui est actif (connecteurs claude.ai compris), `/context` ce que ça coûte
 
 ---
 

@@ -58,4 +58,4 @@ npm run lint
 npm run lint:doc
 ```
 
-`npm run lint:doc` checks each `README.md` and `CLAUDE.md` with Vale and the Simplified Technical English rules in `.vale/`. `npm install` downloads Vale.
+`npm run lint:doc` checks each `README.md` and `CLAUDE.md` with Vale and the Simplified Technical English rules in `.vale/`. `npm install` downloads Vale. If `npm run lint:doc` tells you that Vale is missing, run `npm rebuild @vvago/vale`.

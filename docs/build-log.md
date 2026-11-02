@@ -17,3 +17,11 @@ This repo was built with Claude Code from a written plan. Each entry is the inst
 ## Task 4 — Add the phase 2 slides
 
 > Write `slides.md` for Marp, in French, about 25 slides in the order of the phase 2 outline. At most 5 bullets per slide, speaker notes on the theory slides. Render to PNG and check that no text overflows.
+
+## Task 5 — Add the reference answers on the `solution` branch
+
+> On a `solution` branch only: the three `CLAUDE.md` files, the `libs/shared` README in STE, and `.claude/settings.json` with a Node Prettier hook. Test the hook by hand with a JSON on stdin. `npm run lint:doc` is green.
+
+## Change — Fix the review findings
+
+> An independent review found wrong facts in the exercises and slides: what `$CLAUDE_PROJECT_DIR` holds, the limits of a `Read` deny rule, deferred MCP tool descriptions, how compound commands match the permission rules. Fix each one and keep the solution true to the code.
