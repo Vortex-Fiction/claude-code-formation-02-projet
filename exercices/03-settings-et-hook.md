@@ -19,9 +19,10 @@
 - Demandez à Claude : « Lance les tests. » Il ne doit pas demander la permission.
 - Cassez la mise en forme d'un fichier (indentation, guillemets), puis demandez à Claude d'y changer une ligne. Le fichier doit ressortir formaté.
 - Créez un faux `backend/.env` (`SECRET=test`, il est ignoré par git), puis demandez à Claude : « Lis le fichier `backend/.env`. » L'outil Read doit être refusé.
-- Limite : une règle `Read` n'empêche pas `cat backend/.env` dans Bash. Claude vous demandera la permission : refusez. Seul le sandbox bloque aussi Bash.
+- Demandez ensuite : « Affiche `backend/.env` avec `cat`. » La commande doit être refusée : une règle `Read` couvre aussi les commandes de fichiers que Claude Code reconnaît dans Bash (`cat`, `head`, `tail`, `sed`, `tee`) et les redirections comme `< backend/.env`.
+- Limite : la règle ne couvre pas une commande qui lit le fichier sans le nommer, comme `grep -r SECRET .` lancé depuis `backend/`, ni un script Node qui ouvre le fichier lui-même. Pour bloquer tous les processus, il faut le sandbox.
 
 ## Réussi si
 
-- Les trois vérifications passent.
+- Les quatre vérifications passent.
 - Le même `settings.json` marche sur le portable Windows ou macOS de votre voisin.

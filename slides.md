@@ -218,7 +218,7 @@ npm run lint:doc
 - Sous Windows, l'outil PowerShell a ses propres règles : `PowerShell(...)`
 - Pour un vrai blocage : le sandbox, appliqué par l'OS
 
-<!-- Le deny arrête la commande que Claude écrit d'habitude, ce n'est pas une barrière autour du programme. Autre exemple : « git -C . push --force » échappe à « Bash(git push --force *) ». Sous Windows, Claude Code peut lancer ses commandes avec l'outil PowerShell plutôt que Bash. Un préfixe « cd … && » ne suffit pas à le contourner : Claude Code vérifie chaque sous-commande. Sous Windows avec Git Bash, une règle deny Bash coupe l'outil PowerShell, sauf si CLAUDE_CODE_USE_POWERSHELL_TOOL=1 est défini ou si une règle PowerShell(...) existe : dans ce cas, écrivez aussi la règle PowerShell. Source : code.claude.com/docs/en/permissions. -->
+<!-- Le deny arrête la commande que Claude écrit d'habitude, ce n'est pas une barrière autour du programme. Autre exemple : « git -C . push --force » échappe à « Bash(git push --force *) ». Sous Windows, Claude Code peut lancer ses commandes avec l'outil PowerShell plutôt que Bash. Un préfixe « cd … && » ne suffit pas à le contourner : Claude Code vérifie chaque sous-commande. Sous Windows avec Git Bash, une règle deny Bash coupe l'outil PowerShell, sauf si CLAUDE_CODE_USE_POWERSHELL_TOOL=1 est défini ou si une règle PowerShell(...) existe : dans ce cas, écrivez aussi la règle PowerShell. Sources : code.claude.com/docs/en/permissions et code.claude.com/docs/en/tools-reference. -->
 
 ---
 
